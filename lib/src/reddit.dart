@@ -133,7 +133,7 @@ class Reddit {
         String password, @required String clientType}) async {
     if (_grant == null) throw new StateError("Should first call setupOAuth2");
     if (_oauthEnabled) throw new StateError("OAuth2 is already enabled");
-    if (clientType != 'installed_client' || clientType != 'web_app' || clienType != 'script')
+    if (clientType != 'installed_client' || clientType != 'web_app' || clientType != 'script')
       throw new StateError("clientType must equal 'installed_client or 'web_app' or 'script' ");
 
     // shortening stuff
