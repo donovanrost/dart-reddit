@@ -157,7 +157,7 @@ class Reddit {
             "grant_type": clientType == "installed_client" 
               ? "https://oauth.reddit.com/grants/installed_client" 
               :"client_credentials",
-            "device_id" : deviceID == null ? "" deviceID,  
+            "device_id" : deviceID == null ? "" : deviceID,  
             "username": username == null ? "" : username,
             "password": password == null ? "" : password,
             "duration": "permanent"
