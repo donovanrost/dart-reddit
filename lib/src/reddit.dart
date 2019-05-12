@@ -129,9 +129,12 @@ class Reddit {
    * The Reddit instance provided by the Future, is the same as the instance this method is invoked on.
    */
   Future<Reddit> authFinish(
-      {Map response, String code, String username, String password}) async {
+      {Map response, String code, String username, 
+        String password, @required String clientType}) async {
     if (_grant == null) throw new StateError("Should first call setupOAuth2");
     if (_oauthEnabled) throw new StateError("OAuth2 is already enabled");
+    if (clientType != 'installed_client' || clientType != 'web_app' || clienType != 'script')
+      throw new StateError("clientType must equal 'installed_client or 'web_app' or 'script' ");
 
     // shortening stuff
     Reddit withAuthClient(Client oauthClient) {
@@ -146,11 +149,14 @@ class Reddit {
       // APP-ONLY AUTH
       logger.info("Requesting a userless OAuth2 token at $_TOKEN_ENDPOINT");
       DateTime startTime = new DateTime.now();
+
       Response response = await _client.post(
           _TOKEN_ENDPOINT.replace(
               userInfo: "${_grant.identifier}:${_grant.secret}"),
           body: {
-            "grant_type": "client_credentials",
+            "grant_type": clientType == "installed_client" 
+              ? "installed_client" 
+              :"client_credentials",
             "username": username == null ? "" : username,
             "password": password == null ? "" : password,
             "duration": "permanent"
