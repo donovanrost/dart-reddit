@@ -155,7 +155,7 @@ class Reddit {
               userInfo: "${_grant.identifier}:${_grant.secret}"),
           body: {
             "grant_type": clientType == "installed_client" 
-              ? "installed_client" 
+              ? "https://oauth.reddit.com/grants/installed_client" 
               :"client_credentials",
             "username": username == null ? "" : username,
             "password": password == null ? "" : password,
