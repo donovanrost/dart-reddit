@@ -130,7 +130,7 @@ class Reddit {
    */
   Future<Reddit> authFinish(
       {Map response, String code, String username, 
-        String password, String clientType}) async {
+        String password, String clientType, String deviceID}) async {
     if (_grant == null) throw new StateError("Should first call setupOAuth2");
     if (_oauthEnabled) throw new StateError("OAuth2 is already enabled");
     if (!(clientType == 'installed_client' || clientType == 'web_app' || clientType == 'script'))
@@ -157,6 +157,7 @@ class Reddit {
             "grant_type": clientType == "installed_client" 
               ? "https://oauth.reddit.com/grants/installed_client" 
               :"client_credentials",
+            "device_id" : deviceID == null ? "" deviceID,  
             "username": username == null ? "" : username,
             "password": password == null ? "" : password,
             "duration": "permanent"
